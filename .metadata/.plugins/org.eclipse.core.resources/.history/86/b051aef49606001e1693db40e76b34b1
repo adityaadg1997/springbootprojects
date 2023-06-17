@@ -1,0 +1,14 @@
+package com.springbootdevtools;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class TestController {
+	
+	public String test() {
+		int a =10;
+		int b=20;
+		return "this is just to test spring dev tools" + (a+b);
+	}
+
+}

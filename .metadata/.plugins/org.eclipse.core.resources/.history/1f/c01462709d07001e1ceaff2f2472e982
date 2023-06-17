@@ -1,0 +1,57 @@
+package com.api.book.bootrestbook.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.book.bootrestbook.entities.Book;
+import com.api.book.bootrestbook.services.BookService;
+
+@RestController
+public class BookController {
+	
+	@Autowired
+	public BookService bookService;
+
+	//get all book handler
+	@GetMapping("/books")
+	public List<Book> getBooks() {
+		
+		return bookService.getAllBooks();
+	}
+	
+	//get single book handler
+	@GetMapping("/books/{id}")
+	public Book getBook(@PathVariable("id") int id) {
+		 return bookService.getBookbyId(id);
+		
+	}
+	
+	//add new book handler
+	@PostMapping("/books")
+	public ResponseStatus<Book> addBook(@RequestBody Book book) {
+		return this.bookService.addBook(book);
+	}
+	
+	//Delete book handler
+	@DeleteMapping("/books/{id}")
+	public void deleteBook(@PathVariable("id") int id) {
+		this.bookService.deleteBook(id);
+	}
+	
+	//update book handler 
+	@PutMapping("/books/{id}")
+	public Book updateBook(@RequestBody Book book, @PathVariable("id") int id) {
+		 this.bookService.updateBook(book, id);
+		 
+		 return book;
+	}
+}

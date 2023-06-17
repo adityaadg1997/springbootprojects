@@ -1,0 +1,21 @@
+package com.api.book.bootrestbook.controllers;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.api.book.bootrestbook.entities.Book;
+
+@RestController
+public class BookController {
+
+	@GetMapping("/books")
+	public String getBooks() {
+		
+		Book book = new Book();
+		book.setId(12);
+		book.setTitle("Java Programming Book");
+		book.setAuthor("by JK Rolling");
+		
+		return "this is my book";
+	}
+}

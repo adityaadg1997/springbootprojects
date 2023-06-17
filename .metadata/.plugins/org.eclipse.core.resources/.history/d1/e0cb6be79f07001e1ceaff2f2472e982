@@ -1,0 +1,64 @@
+package com.api.book.bootrestbook.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
+
+import com.api.book.bootrestbook.entities.Book;
+
+@Service
+public class BookService {
+	
+	public static List<Book> list = new ArrayList<>();
+	
+	static {
+//		list.add(new Book(12, "Java", "JK rolling"));
+//		list.add(new Book(32, "DotNet", "XYZ"));
+//		list.add(new Book(4245, "python programming", "ABC"));
+	}
+	
+	//getting all books
+	public ResponseEntity<List<Book>> getAllBooks() {
+		if(list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		return ResponseEntity.of(Optional.of(list));
+	}
+	
+	//getting a single book
+	public Book getBookbyId(int id) {
+		return list.stream().filter(item -> item.getId() == id).findFirst().get();
+	}
+	
+	//create/addIng book
+	public Book addBook(Book book) {
+		 list.add(book);
+		 
+		 return book;
+	}
+	
+	//deleting a book
+	public void deleteBook(int id) {
+		list = list.stream().filter(item -> item.getId() != id).collect(Collectors.toList());
+	}
+	
+	//updating a book
+	public void updateBook(Book book, int id) {
+		list = list.stream().map(item -> {
+					if(item.getId() == id) {
+						item.setTitle(book.getTitle());
+						item.setAuthor(book.getAuthor());
+					}
+					return item;
+				}).collect(Collectors.toList());
+	}
+
+}
