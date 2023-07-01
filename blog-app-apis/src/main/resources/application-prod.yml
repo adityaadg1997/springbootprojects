@@ -1,6 +1,0 @@
-#db configuration
-spring:
-  datasource:
-    username: blog_app_apis_y7ux_user
-    password: llSSB318h7kZrBmwdk7jl64zqIdXFaZX
-    url: jdbc:mysql://dpg-cig4j65gkuvojjfhur2g-a:5432/blog_app_apis_y7ux
