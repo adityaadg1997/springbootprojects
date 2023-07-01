@@ -1,0 +1,13 @@
+server:
+  port: 9090
+
+#Multipart configuration
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+project:
+  image: C:\D-drive-Workspace\springbootproject\fileUploadProjectDemo\images
+

@@ -17,30 +17,27 @@ public class FileUploadController {
     private FileUploadHelper fileUploadHelper;
 
     @PostMapping("/upload-file")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
 
         try {
 
-        //validation
-        if (file.isEmpty()){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must Contain file");
-        }
+            //validation
+            if (file.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must Contain file");
+            }
 
-//        System.out.println(file.getOriginalFilename());
-//        System.out.println(file.getContentType());
-
-        if (!file.getContentType().equals("image/jpeg")){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only JPEG file are allowed");
-        }
+            if (!file.getContentType().equals("image/jpeg")) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only JPEG file are allowed");
+            }
 
 
-        //file upload code
-        boolean f = fileUploadHelper.uploadFile(file);
-        if (f){
-            return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(file.getOriginalFilename()).toUriString());
-        }
+            //file upload code
+            boolean f = fileUploadHelper.uploadFile(file);
+            if (f) {
+                return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(file.getOriginalFilename()).toUriString());
+            }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
